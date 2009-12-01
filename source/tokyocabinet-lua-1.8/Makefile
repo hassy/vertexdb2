@@ -1,0 +1,188 @@
+# Makefile for Tokyo Cabinet for Lua
+
+
+
+#================================================================
+# Setting Variables
+#================================================================
+
+
+# Generic settings
+SHELL = /bin/sh
+
+# Package information
+PACKAGE = tokyocabinet-lua
+VERSION = 1.8
+PACKAGEDIR = $(PACKAGE)-$(VERSION)
+PACKAGETGZ = $(PACKAGE)-$(VERSION).tar.gz
+
+# Targets
+LIBRARYFILES =  tokyocabinet.dylib
+LIBOBJFILES = tokyocabinet.o
+COMMANDFILES = tcutest.lua tchtest.lua tcbtest.lua tcftest.lua
+
+# Install destinations
+prefix = /usr/local
+exec_prefix = ${prefix}
+datarootdir = ${prefix}/share
+LIBDIR = ${exec_prefix}/lib
+BINDIR = ${exec_prefix}/bin
+LUALIBDIR = /usr/local/lib/lua/5.1
+DESTDIR =
+
+# Building configuration
+CC = gcc
+CPPFLAGS = -I. -I$(INCLUDEDIR) -L/Users/steve/include -L/usr/local/include -DNDEBUG -D_GNU_SOURCE=1 -I/usr/include/lua5.1 -I/usr/local/include/lua5.1 -I/usr/include/lua -I/usr/local/include/lua -D_MYLUA
+CFLAGS = -std=c99 -Wall -fPIC -fsigned-char -O2
+LDFLAGS = -L. -L$(LIBDIR) -L/Users/steve/lib -L/usr/local/lib -L/usr/include/lua5.1 -L/usr/local/include/lua5.1 -L/usr/include/lua -L/usr/local/include/lua
+LIBS = -ltokyocabinet -llua -lbz2 -lz -lpthread -lm -lc 
+LDENV = LD_RUN_PATH=/lib:/usr/lib:$(LIBDIR):$(HOME)/lib:/usr/local/lib:$(LIBDIR):/usr/local/lib:.
+RUNENV = DYLD_LIBRARY_PATH=.:/lib:/usr/lib:$(LIBDIR):$(HOME)/lib:/usr/local/lib:$(LIBDIR):/usr/local/lib
+
+
+
+#================================================================
+# Suffix rules
+#================================================================
+
+
+.SUFFIXES :
+.SUFFIXES : .c .o
+
+.c.o :
+	$(CC) -c $(CPPFLAGS) $(CFLAGS) $<
+
+
+
+#================================================================
+# Actions
+#================================================================
+
+
+all : $(LIBRARYFILES)
+	@printf '\n'
+	@printf '#================================================================\n'
+	@printf '# Ready to install.\n'
+	@printf '#================================================================\n'
+
+
+clean :
+	rm -rf $(LIBRARYFILES) $(LIBOBJFILES) \
+	  *.o a.out *.class check.in check.out gmon.out leak.log \
+	  casket casket-* casket.* *.wal *~ hoge moge
+
+
+untabify :
+	ls *.c *.lua | while read name ; \
+	  do \
+	    sed -e 's/\t/        /g' -e 's/ *$$//' $$name > $$name~; \
+	    [ -f $$name~ ] && mv -f $$name~ $$name ; \
+	  done
+	chmod 755 tc*test.lua
+
+
+install :
+	mkdir -p $(DESTDIR)$(LUALIBDIR)
+	cp -Rf $(LIBRARYFILES) $(DESTDIR)$(LUALIBDIR)
+	mkdir -p $(DESTDIR)$(BINDIR)
+	cp -Rf $(COMMANDFILES) $(DESTDIR)$(BINDIR)
+	@printf '\n'
+	@printf '#================================================================\n'
+	@printf '# Thanks for using Tokyo Cabinet for Lua.\n'
+	@printf '#================================================================\n'
+
+
+uninstall :
+	cd $(DESTDIR)$(LUALIBDIR) && rm -f $(LIBRARYFILES)
+	cd $(DESTDIR)$(BINDIR) && rm -f $(COMMANDFILES)
+
+
+dist :
+	make untabify
+	make distclean
+	cd .. && tar cvf - $(PACKAGEDIR) | gzip -c > $(PACKAGETGZ)
+	sync ; sync
+
+
+distclean : clean
+	rm -rf Makefile config.cache config.log config.status autom4te.cache
+
+
+check :
+	rm -rf casket*
+	lua tcutest.lua misc 1000
+	lua tchtest.lua write casket 10000
+	lua tchtest.lua read casket
+	lua tchtest.lua remove casket
+	lua tchtest.lua misc casket 1000
+	lua tchtest.lua write -tl -as -td casket 10000 10000 1 1
+	lua tchtest.lua read -nl casket
+	lua tchtest.lua remove -nb casket
+	lua tchtest.lua misc -tl -tb casket 1000
+	lua tcbtest.lua write casket 10000
+	lua tcbtest.lua read casket
+	lua tcbtest.lua remove casket
+	lua tcbtest.lua misc casket 1000
+	lua tcbtest.lua write -tl casket 10000 10 10 100 1 1
+	lua tcbtest.lua read -nl casket
+	lua tcbtest.lua remove -nb casket
+	lua tcbtest.lua misc -tl -tb casket 1000
+	lua tcftest.lua write casket 10000
+	lua tcftest.lua read casket
+	lua tcftest.lua remove casket
+	lua tcftest.lua misc casket 1000
+	lua tcttest.lua write -ip -is -in casket 1000
+	lua tcttest.lua read casket
+	lua tcttest.lua remove casket
+	lua tcttest.lua misc casket 500
+	lua tcttest.lua write -tl -is -td casket 1000 1000 1 1
+	lua tcttest.lua read -nl casket
+	lua tcttest.lua remove -nb casket
+	lua tcttest.lua misc -tl -tb casket 500
+	lua tcatest.lua write 'casket.tch#mode=wct' 10000
+	lua tcatest.lua read 'casket.tch#mode=r'
+	lua tcatest.lua remove 'casket.tch#mode=w'
+	lua tcatest.lua misc 'casket.tch#mode=wct' 1000
+	rm -rf casket*
+	@printf '\n'
+	@printf '#================================================================\n'
+	@printf '# Checking completed.\n'
+	@printf '#================================================================\n'
+
+
+doc :
+	make docclean
+	mkdir -p doc
+	luadoc -d doc --nofiles tokyocabinet-doc.lua
+	find doc -type f -name '*.html' | \
+	  while read name ; do \
+	    sed -e 's/<title>.*<\/title>/<title>Tokyo Cabinet<\/title>/' \
+	      -e 's/.*validator\.w3\.org.*/Tokyo Cabinet Manual/' $$name > $$name~ ; \
+	    [ -f $$name~ ] && mv -f $$name~ $$name ; \
+	  done
+	lua docrefine.lua
+
+
+docclean :
+	rm -rf doc
+
+
+.PHONY : all clean install casket check doc
+
+
+
+#================================================================
+# Building binaries
+#================================================================
+
+
+tokyocabinet.so : $(LIBOBJFILES)
+	$(CC) $(CFLAGS) -shared -o $@ $(LIBOBJFILES) $(LDFLAGS) $(LIBS)
+
+
+tokyocabinet.dylib : $(LIBOBJFILES)
+	$(CC) $(CFLAGS) -dynamiclib -o $@ $(LIBOBJFILES) $(LDFLAGS) $(LIBS)
+
+
+
+# END OF FILE

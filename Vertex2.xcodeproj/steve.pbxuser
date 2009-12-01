@@ -1,0 +1,229 @@
+// !$*UTF8*$!
+{
+	08FB7793FE84155DC02AAC07 /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeExecutable = AACB7DB210BE433800DD824B /* Vertex2 */;
+		activeTarget = 8DD76FA90486AB0100D96B5E /* Vertex2 */;
+		addToTargets = (
+			8DD76FA90486AB0100D96B5E /* Vertex2 */,
+		);
+		breakpoints = (
+			AAE2AD1F10C21F6500F25E30 /* VertexServer.c:80 */,
+			AAE2AD3010C21FF000F25E30 /* VertexServer.c:91 */,
+			AAE2AD3E10C222ED00F25E30 /* HttpServer.c:110 */,
+		);
+		codeSenseManager = AACB7DBD10BE433E00DD824B /* Code sense */;
+		executables = (
+			AACB7DB210BE433800DD824B /* Vertex2 */,
+		);
+		perUserDictionary = {
+			PBXPerProjectTemplateStateSaveDate = 281155646;
+			PBXWorkspaceStateSaveDate = 281155646;
+		};
+		sourceControlManager = AACB7DBC10BE433E00DD824B /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	8DD76FA90486AB0100D96B5E /* Vertex2 */ = {
+		activeExec = 0;
+		executables = (
+			AACB7DB210BE433800DD824B /* Vertex2 */,
+		);
+	};
+	AA82687310C0C79F00D7F532 /* CHash_inline.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {772, 2178}}";
+			sepNavSelRange = "{391, 59}";
+			sepNavVisRange = "{81, 309}";
+			sepNavWindowFrame = "{{965, 404}, {898, 903}}";
+		};
+	};
+	AA82687510C0C79F00D7F532 /* Common.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1691, 3274}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1317}";
+			sepNavWindowFrame = "{{199, 502}, {898, 903}}";
+		};
+	};
+	AA8268C510C0C79F00D7F532 /* HttpRequest.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {849, 2290}}";
+			sepNavSelRange = "{1507, 40}";
+			sepNavVisRange = "{1254, 1262}";
+			sepNavWindowFrame = "{{446, 0}, {898, 878}}";
+		};
+	};
+	AA8268C610C0C79F00D7F532 /* HttpRequest.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {732, 1026}}";
+			sepNavSelRange = "{350, 0}";
+			sepNavVisRange = "{233, 280}";
+			sepNavWindowFrame = "{{-1, 0}, {1436, 878}}";
+		};
+	};
+	AA8268C710C0C79F00D7F532 /* HttpResponse.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {849, 1360}}";
+			sepNavSelRange = "{636, 0}";
+			sepNavVisRange = "{0, 1189}";
+			sepNavWindowFrame = "{{204, 0}, {898, 878}}";
+		};
+	};
+	AA8268C810C0C79F00D7F532 /* HttpResponse.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {936, 719}}";
+			sepNavSelRange = "{584, 31}";
+			sepNavVisRange = "{0, 1111}";
+			sepNavWindowFrame = "{{84, 31}, {985, 779}}";
+		};
+	};
+	AA8268C910C0C79F00D7F532 /* HttpServer.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {812, 2630}}";
+			sepNavSelRange = "{3100, 0}";
+			sepNavVisRange = "{3045, 274}";
+			sepNavWindowFrame = "{{38, 73}, {985, 779}}";
+		};
+	};
+	AA8268CA10C0C79F00D7F532 /* HttpServer.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {936, 1090}}";
+			sepNavSelRange = "{245, 50}";
+			sepNavVisRange = "{0, 842}";
+			sepNavWindowFrame = "{{38, 73}, {985, 779}}";
+		};
+	};
+	AA8268CB10C0C79F00D7F532 /* main.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {849, 882}}";
+			sepNavSelRange = "{829, 0}";
+			sepNavVisRange = "{46, 831}";
+			sepNavWindowFrame = "{{107, 586}, {898, 903}}";
+		};
+	};
+	AA8268CE10C0C79F00D7F532 /* VertexServer.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {596, 5072}}";
+			sepNavSelRange = "{6106, 0}";
+			sepNavVisRange = "{5908, 240}";
+			sepNavWindowFrame = "{{388, 51}, {786, 780}}";
+		};
+	};
+	AA8268CF10C0C79F00D7F532 /* VertexServer.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {849, 878}}";
+			sepNavSelRange = "{139, 0}";
+			sepNavVisRange = "{37, 1528}";
+			sepNavWindowFrame = "{{225, 0}, {898, 878}}";
+		};
+	};
+	AABA6BD910C0CD8500B9AB68 /* Datum.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1124, 1408}}";
+			sepNavSelRange = "{338, 25}";
+			sepNavVisRange = "{0, 1372}";
+			sepNavWindowFrame = "{{15, 94}, {985, 779}}";
+		};
+	};
+	AACB7DB210BE433800DD824B /* Vertex2 */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 1;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = Vertex2;
+		savedGlobals = {
+		};
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+		variableFormatDictionary = {
+		};
+	};
+	AACB7DBC10BE433E00DD824B /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	AACB7DBD10BE433E00DD824B /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	AAE2AD1F10C21F6500F25E30 /* VertexServer.c:80 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = AA8268CE10C0C79F00D7F532 /* VertexServer.c */;
+		functionName = "VertexServer_process()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 80;
+		location = Vertex2;
+		modificationTime = 281274822.044172;
+		originalNumberOfMultipleMatches = 1;
+		state = 2;
+	};
+	AAE2AD3010C21FF000F25E30 /* VertexServer.c:91 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = AA8268CE10C0C79F00D7F532 /* VertexServer.c */;
+		functionName = "VertexServer_process()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 91;
+		location = Vertex2;
+		modificationTime = 281274822.044396;
+		originalNumberOfMultipleMatches = 1;
+		state = 2;
+	};
+	AAE2AD3E10C222ED00F25E30 /* HttpServer.c:110 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = AA8268C910C0C79F00D7F532 /* HttpServer.c */;
+		functionName = "HttpServer_handleRequest()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 110;
+		location = Vertex2;
+		modificationTime = 281274822.044468;
+		originalNumberOfMultipleMatches = 1;
+		state = 2;
+	};
+}

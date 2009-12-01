@@ -1,0 +1,138 @@
+# Source of configuration for Tokyo Cabinet for Lua
+
+
+
+#================================================================
+# Generic Settings
+#================================================================
+
+# Package name
+AC_INIT(tokyocabinet-lua, 1.8)
+
+# Targets
+MYLIBRARYFILES=""
+MYLIBOBJFILES="tokyocabinet.o"
+MYCOMMANDFILES="tcutest.lua tchtest.lua tcbtest.lua tcftest.lua"
+
+# Install destinations
+MYLUALIBDIR=""
+
+# Building flags
+MYCFLAGS="-std=c99 -Wall -fPIC -fsigned-char -O2"
+MYCPPFLAGS="-I. -I\$(INCLUDEDIR) -L$HOME/include -L/usr/local/include -DNDEBUG -D_GNU_SOURCE=1"
+MYLDFLAGS="-L. -L\$(LIBDIR) -L$HOME/lib -L/usr/local/lib"
+MYRUNPATH="\$(LIBDIR)"
+MYLDLIBPATHENV="LD_LIBRARY_PATH"
+
+# Building paths
+pathtmp="$PATH"
+PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
+PATH="$PATH:/usr/ccs/bin:/usr/ucb:/usr/xpg4/bin:/usr/xpg6/bin:$pathtmp"
+LIBRARY_PATH="$HOME/lib:/usr/local/lib:$LIBRARY_PATH"
+LD_LIBRARY_PATH="$HOME/lib:/usr/local/lib:$LD_LIBRARY_PATH"
+CPATH="$HOME/include:/usr/local/include:$CPATH"
+PKG_CONFIG_PATH="$HOME/lib/pkgconfig:/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
+export PATH LIBRARY_PATH LD_LIBRARY_PATH CPATH PKG_CONFIG_PATH
+if type pkg-config > /dev/null 2>&1
+then
+  PATH="$PATH:`pkg-config --variable=bindir tokyocabinet`"
+  LIBRARY_PATH="$LIBRARY_PATH:`pkg-config --variable=libdir tokyocabinet`"
+  LD_LIBRARY_PATH="$LD_LIBRARY_PATH:`pkg-config --variable=libdir tokyocabinet`"
+  CPATH="$CPATH:`pkg-config --variable=includedir tokyocabinet`"
+  export PATH LIBRARY_PATH LD_LIBRARY_PATH CPATH PKG_CONFIG_PATH
+fi
+
+# Messages
+printf '#================================================================\n'
+printf '# Configuring Tokyo Cabinet for Lua version %s.\n' "$PACKAGE_VERSION"
+printf '#================================================================\n'
+
+
+
+#================================================================
+# Checking Commands to Build with
+#================================================================
+
+# Lua environment
+luaver=`lua -e 'v = string.gsub(_VERSION, ".* ", ""); print(v)'`
+MYCPPFLAGS="$MYCPPFLAGS -I/usr/include/lua$luaver -I/usr/local/include/lua$luaver"
+MYCPPFLAGS="$MYCPPFLAGS -I/usr/include/lua -I/usr/local/include/lua -D_MYLUA"
+MYLDFLAGS="$MYLDFLAGS -L/usr/include/lua$luaver -L/usr/local/include/lua$luaver"
+MYLDFLAGS="$MYLDFLAGS -L/usr/include/lua -L/usr/local/include/lua"
+LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/include/lua$luaver:/usr/local/include/lua$luaver"
+LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/include/lua:/usr/local/include/lua"
+LIBRARY_PATH="$LIBRARY_PATH:/usr/lib/lua$luaver:/usr/local/lib/lua$luaver"
+LIBRARY_PATH="$LIBRARY_PATH:/usr/lib/lua:/usr/local/lib/lua"
+CPATH="$CPATH:/usr/include/lua$luaver:/usr/local/include/lua$luaver"
+CPATH="$CPATH:/usr/include/lua:/usr/local/include/lua"
+
+# Lua library path
+MYLUALIBDIR=`lua libpath.lua`
+if test -z "$MYLUALIBDIR"
+then
+  MYLUALIBDIR="$libdir/lua/$luaver"
+fi
+
+# C compiler
+AC_PROG_CC
+
+# Underlying libraries
+AC_CHECK_LIB(c, main)
+AC_CHECK_LIB(m, main)
+AC_CHECK_LIB(pthread, main)
+AC_CHECK_LIB(z, main)
+AC_CHECK_LIB(bz2, main)
+AC_CHECK_LIB(tokyocabinet, main)
+
+# Necessary headers
+AC_CHECK_HEADER(stdlib.h, true, AC_MSG_ERROR(stdlib.h is required))
+AC_CHECK_HEADER(stdint.h, true, AC_MSG_ERROR(stdint.h is required))
+AC_CHECK_HEADER(tcutil.h, true, AC_MSG_ERROR(tcutil.h is required))
+AC_CHECK_HEADER(lua.h, true, AC_MSG_ERROR(lua.h is required))
+
+# Checking the version of Tokyo Cabinet with pkg-config
+if type pkg-config > /dev/null 2>&1 && pkg-config --atleast-version=1.3.11 tokyocabinet
+then
+  MYCPPOPTS="$MYCPPOPTS -I`pkg-config --variable=includedir tokyocabinet`"
+  MYLDOPTS="$MYLDOPTS -L`pkg-config --variable=libdir tokyocabinet`"
+  MYRUNPATH="$MYRUNPATH:`pkg-config --variable=libdir tokyocabinet`"
+fi
+
+# Shared libraries
+if uname | grep Darwin >/dev/null
+then
+  MYLIBRARYFILES="$MYLIBRARYFILES tokyocabinet.dylib"
+  MYLDLIBPATHENV="DYLD_LIBRARY_PATH"
+else
+  MYLIBRARYFILES="$MYLIBRARYFILES tokyocabinet.so"
+fi
+
+
+
+#================================================================
+# Generic Settings
+#================================================================
+
+
+# Export variables
+AC_SUBST(MYLIBRARYFILES)
+AC_SUBST(MYLIBOBJFILES)
+AC_SUBST(MYCOMMANDFILES)
+AC_SUBST(MYLUALIBDIR)
+AC_SUBST(MYCFLAGS)
+AC_SUBST(MYCPPFLAGS)
+AC_SUBST(MYLDFLAGS)
+AC_SUBST(MYRUNPATH)
+AC_SUBST(MYLDLIBPATHENV)
+
+# Targets
+AC_OUTPUT(Makefile)
+
+# Messages
+printf '#================================================================\n'
+printf '# Ready to make.\n'
+printf '#================================================================\n'
+
+
+
+# END OF FILE
