@@ -1,4 +1,0 @@
-
-gcc -lm -O0 -g -I /opt/local/include -I/usr/local/include -I source -I source/basekit/source -I source/basekit/source/simd_cph/include -I source/httpserver -I PDB -Lsource/tokyocabinet-lua-1.8/ -L/usr/local/lib/lua/5.1 -L/usr/local/lib -L/opt/local/lib source/httpserver/*.c source/basekit/source/*.c source/*.c  -levent -llua -lbz2 -lzip -lz -lyajl -o build/vertexdb && chmod 755 build/vertexdb
-
-# NOT linking with -ltokyocabinet
