@@ -1,0 +1,5 @@
+The TokyoCabinet extension for Lua didn't build out-of-the-box on my OSX 10.5. To fix:
+
+1. Remove Lua installed via MacPorts, and install it from the official tarball from lua.org
+2. After running ./confugure for the TokyoCabinet extension, edit the Makefile manually:
+  * add -llua to the list afte LIBS=
