@@ -269,7 +269,7 @@ int VertexServer_run(VertexServer *self)
 	luaopen_loadlib(self->luaState);
 	*/
 	
-	luaopen_tokyocabinet(self->luaState);
+	//luaopen_tokyocabinet(self->luaState);
 	
     if (luaL_dofile(self->luaState , "../../lua/HttpRequestHandler.lua"))
     {
