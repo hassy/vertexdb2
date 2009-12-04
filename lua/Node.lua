@@ -58,7 +58,7 @@ end
 function Node:nodeAt(k)
 	local pid = self._pdb:at(self:slotKey(k))
 	if pid then
-		return Node:clone():setPid(pid):setParentNode(self)
+		return Node:clone():setPdb(self._pdb):setPid(pid):setParentNode(self)
 	end
 	return nil
 end
@@ -66,7 +66,7 @@ end
 function Node:createNodeAt(k)
 	local node = self:nodeAt(k)
 	if node == nil then
-		node = Node:clone():create()
+		node = Node:clone():setPdb(self._pdb):create()
 		self:write(k, node:pid())
 	end
 	return node
@@ -96,9 +96,10 @@ function Node:createNodeAtPath(path)
 
 	for i, k in pairs(pathComponents(path)) do
 		if k then
-		local nextNode = self:nodeAt(k)
+		    local nextNode = self:nodeAt(k)
 			if nextNode == nil then 
-				nextNode = Node:createNodeAt(k)
+				nextNode = self:createNodeAt(k)
+				
 			end
 			node = nextNode
 		end
@@ -134,7 +135,9 @@ end
 
 function Node:size()
 	local size = self._pdb:at(self:metaKey("size"))
-	if size then return tonumber(size) end
+	if size then
+	    return tonumber(size)
+	end
 	return nil
 end
 
@@ -172,11 +175,12 @@ function Node:read(k)
 end
 
 function Node:hasKey(k)
-	return (self:read() ~= nil)
+	return (self:read(k) ~= nil)
 end
 
 function Node:write(k, v)
 	local hadKey = self:hasKey(k)
+	
 	self._pdb:atPut(self:slotKey(k), tostring(v))
 	
 	if hadKey then 

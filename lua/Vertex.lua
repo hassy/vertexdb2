@@ -23,19 +23,25 @@ function Vertex:close()
 	return self
 end
 
+function Vertex:createNodeAtPath(path)
+    --return self._pdb:nodeAtPath(path)
+    return self._pdb:createNodeAtPath(path)
+end
+
 function Vertex:nodeAtPath(path)
 	return self._pdb:nodeAtPath(path)
 end
 
 function Vertex:handleRequest(httpRequest)
+
 	if httpRequest._post == "" then
 		self:api_view(httpRequest)
 		return
 	end
-
+	
 	local requests = Json.Decode(httpRequest._post)
 	local results = {}
-			
+	
 	self._pdb:begin()
 	for i, request in pairs(requests) do
 		local api_action = "api_" .. request.action
@@ -50,7 +56,7 @@ function Vertex:handleRequest(httpRequest)
 end
 
 function Vertex:api_mkdir(request)
-	self:nodeAtPath(request.path)
+    self:createNodeAtPath(request.path)
 	return {}
 end
 
@@ -86,7 +92,7 @@ function Vertex:api_link(request)
 	return {}
 end
 
-function Vertex:api_read()
+function Vertex:api_read(request)
 	local node = self:nodeAtPath(request.path)
 	if node == nil then 
 		return { error = "invalid path" }
@@ -95,7 +101,7 @@ function Vertex:api_read()
 	return { result = node:read(request.key) }
 end
 
-function Vertex:api_write()
+function Vertex:api_write(request)
 	local node = self:nodeAtPath(request.path)
 	if node == nil then 
 		return { error = "invalid path" }

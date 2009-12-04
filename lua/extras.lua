@@ -1,5 +1,5 @@
 --print(BDB)
---require("tokyocabinet")
+require("tokyocabinet")
 
 function showTable(t, tab)
 	for k,v in pairs(t) do 
@@ -23,6 +23,7 @@ function pathComponents(str)
 	local t = {}
 	local function helper(line) table.insert(t, line) return "" end
 	helper((str:gsub("(.-)\r?/", helper)))
+	table.remove(t, 1)
 	return t
 end
 

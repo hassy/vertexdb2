@@ -5,6 +5,7 @@ PDB = {
 	_rootNode = nil;
 }
 
+
 function PDB:clone()
     local instance = setmetatable({}, { __index = PDB })
 	instance:init()
@@ -60,6 +61,10 @@ end
 function PDB:removeAt(k)
 	self._tc[k] = nil
 	return self
+end
+
+function PDB:createNodeAtPath(path)
+    return self._rootNode:createNodeAtPath(path)
 end
 
 function PDB:nodeAtPath(path)

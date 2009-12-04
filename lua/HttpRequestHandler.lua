@@ -23,8 +23,8 @@ HttpRequest = {
 }
 
 function HttpRequest:show()
-	print("uriPath: '" .. self._uriPath .. "'")
-	print("post: '" .. self._post .. "'")
+    print("uriPath: '" .. self._uriPath .. "'")
+    print("post: '" .. self._post .. "'")
 	showTable(self._params, " ")
 end
 
