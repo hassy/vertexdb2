@@ -14,4 +14,5 @@ CC = gcc
 CC_FLAGS = -O0 -g
 
 all:
+	if [ ! -d "build" ]; then mkdir build; fi
 	$(CC) $(CC_FLAGS) $(INCLUDES) $(LD_FLAGS) $(SOURCES) $(LIBS) -o build/vertexdb
